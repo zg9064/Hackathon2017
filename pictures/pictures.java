@@ -21,7 +21,7 @@ public class pictures extends JComponent {
 		int c1=0,c2=0,c3=0,c4=0,c5=0;
 		BufferedImage image;
 		try {
-			image = ImageIO.read(new File("Aviary Stock Photo 1.png"));
+			image = ImageIO.read(new File(INPUT));
 		} catch (IOException e1) {
 			return;
 		}
