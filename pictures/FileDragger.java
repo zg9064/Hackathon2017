@@ -20,7 +20,7 @@ public FileDragger() {
  private static void createAndShowGui() {
   FileDragger mainPanel = new FileDragDemo();
 
-  JFrame frame = new JFrame("FileDragDemo");
+  JFrame frame = new JFrame("FileDragger");
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   frame.getContentPane().add(mainPanel);
   frame.pack();
