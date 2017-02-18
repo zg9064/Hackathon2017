@@ -35,6 +35,13 @@ public class pictures {
 			else
 				s+=hues[i]+", ";
 		System.out.println("black: "+black+" white: "+white+" hues: "+s);
-    */
+    */		int[] colors=new int[5];
+		for(int i=0;i<5;i++){
+			int mostCommon=0;
+			for(int i=0;i<360;i++){
+				if(hues[i]>hues[mostCommon]) mostCommon=i;
+			}
+			
+				
 	}
 }
