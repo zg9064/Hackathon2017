@@ -2,38 +2,52 @@ import java.io.*;
 import java.util.*;
 import java.awt.Color;
 import java.awt.image.*;
+import java.awt.Graphics;
 
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.imageio.*;
 import javax.imageio.stream.ImageOutputStream;
 @SuppressWarnings("all")
-public class pictures {
-	public static void main(String[]args) throws IOException{
-		BufferedImage image = ImageIO.read(new File(INPUT));
+public class pictures extends JComponent {
+	public static void main(String[]args){
+		JFrame window = new JFrame();
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setBounds(30, 30, 400, 200);
+		window.getContentPane().add(new pictures());
+		window.setVisible(true);
+	}
+	public void paint (Graphics gr){
+		int c1=0,c2=0,c3=0,c4=0,c5=0;
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("Aviary Stock Photo 1.png"));
+		} catch (IOException e1) {
+			return;
+		}
 		int width=image.getWidth();
 		int height=image.getHeight();
 		int[] hues=new int[360];
+		float[] sat=new float[360];
+		float[] sn=new float[360];
+		float[] br=new float[360];
+		float[] bn=new float[360];
 		int black=0;
 		int white=0;
-		for(int y=0;y<height;y++){
-			for(int x=0;x<width;x++){
-				int rgb=image.getRGB(x,y);
-				float hsb[] = new float[3];
-				int r = (rgb >> 16) & 0xFF;
-				int g = (rgb >>  8) & 0xFF;
-				int b = (rgb      ) & 0xFF;
-				Color.RGBtoHSB(r, g, b, hsb);
+		for(int y=0;y<height;y+=3){
+			for(int x=0;x<width;x+=3){
+				float[] hsb= MostCommon.getColor(image,x,y);
 				if      (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
 				else if (hsb[2] < 0.1                ) black++;
-				else                                   hues[(int) (hsb[0]*360)]++;
+				else{
+					hues[(int)(hsb[0])]++;
+					sat[(int)(hsb[0])]=(float)(sn[(int)(hsb[0])]*sat[(int)(hsb[0])]+hsb[1])/(sn[(int)(hsb[0])]+1);
+					br[(int)(hsb[0])]=(float)(br[(int)(hsb[0])]*bn[(int)(hsb[0])]+hsb[2])/(bn[(int)(hsb[0])]+1);
+					sn[(int)(hsb[0])]++;
+					bn[(int)(hsb[0])]++;
+				}
 			}
 		}
-		String s="[";
-		for(int i=0; i<360;i++)
-			if(i==359)
-				s+=hues[i]+"]";
-			else
-				s+=hues[i]+", ";
-		System.out.println("black: "+black+" white: "+white+" hues: "+s);
 		int[] colors=new int[5];
 		int mc1=-1;
 		int mc2=-1;
@@ -50,15 +64,15 @@ public class pictures {
 				boolean r3=true;
 				boolean r4=true;
 				if(mc1<360&&r1&&mc1>=0){
-					if(mc1<=15&&j<31){
-						j=31;
+					if(mc1<=30&&j<61){
+						j=61;
 						run=false;
 						r1=false;
 					}
 					else{
-						for(int t=-15;t<16;t++){
+						for(int t=-30;t<31;t++){
 							if(j==mc1+t){
-								j=mc1+16;
+								j=mc1+31;
 								run=false;
 								r1=false;
 							}
@@ -66,15 +80,15 @@ public class pictures {
 					}
 				}
 				if(mc2<360&&r2&&mc2>=0){
-					if(mc2<=15&&j<31){
-						j=31;
+					if(mc2<=30&&j<61){
+						j=61;
 						run=false;
 						r2=false;
 					}
 					else{
-						for(int t=-15;t<16;t++){
+						for(int t=-30;t<31;t++){
 							if(j==mc2+t){
-								j=mc2+16;
+								j=mc2+31;
 								run=false;
 								r2=false;
 							}
@@ -82,15 +96,15 @@ public class pictures {
 					}
 				}
 				if(mc3<360&&r3&&mc3>=0){
-					if(mc3<=15&&j<31){
-						j=31;
+					if(mc3<=30&&j<61){
+						j=61;
 						run=false;
 						r3=false;
 					}
 					else{
-						for(int t=-15;t<16;t++){
+						for(int t=-30;t<31;t++){
 							if(j==mc3+t){
-								j=mc3+16;
+								j=mc3+31;
 								run=false;
 								r3=false;
 							}
@@ -98,15 +112,15 @@ public class pictures {
 					}
 				}
 				if(mc4<360&&r4&&mc4>=0){
-					if(mc4<=15&&j<31){
-						j=31;
+					if(mc4<=30&&j<61){
+						j=61;
 						run=false;
 						r4=false;
 					}
 					else{
-						for(int t=-15;t<16;t++){
+						for(int t=-30;t<31;t++){
 							if(j==mc4+t){
-								j=mc4+16;
+								j=mc4+31;
 								run=false;
 								r4=false;
 							}
@@ -155,37 +169,22 @@ public class pictures {
 				else if(mc4<0) mc4=mostCommon;
 			}
 			colors[i]=mostCommon;
-
 		}
-		int c1,c2,c3,c4,c5;
-		for(int i=0;i<5;i++){
-			if(colors[i]==361){
-				if(i==0) c1=Color.HSBtoRGB(0, 0, 1);
-				else if(i==1) c2=Color.HSBtoRGB(0, 0, 1);
-				else if(i==2) c3=Color.HSBtoRGB(0, 0, 1);
-				else if(i==3) c4=Color.HSBtoRGB(0, 0, 1);
-				else c5=Color.HSBtoRGB(0, 0, 1);
-			}
-			else if(colors[i]==360){
-				if(i==0) c1=Color.HSBtoRGB(0, 0, 0);
-				else if(i==1) c2=Color.HSBtoRGB(0, 0, 0);
-				else if(i==2) c3=Color.HSBtoRGB(0, 0, 0);
-				else if(i==3) c4=Color.HSBtoRGB(0, 0, 0);
-				else c5=Color.HSBtoRGB(0, 0, 0);
-			}
-			else{
-				if(i==0) c1=Color.HSBtoRGB(new Float(colors[i]), new Float(.5), new Float(.5));
-				else if(i==1) c2=Color.HSBtoRGB(new Float(colors[i]), new Float(.5), new Float(.5));
-				else if(i==2) c3=Color.HSBtoRGB(new Float(colors[i]), new Float(.5), new Float(.5));
-				else if(i==3) c4=Color.HSBtoRGB(new Float(colors[i]), new Float(.5), new Float(.5));
-				else c5=Color.HSBtoRGB(new Float(colors[i]), new Float(.5), new Float(.5));
-			}
-		}
-		String str="[";
-		for(int i=0;i<5;i++){
-			if(i==4) str+=colors[i]+"]";
-			else str+=colors[i]+", ";
-		}
-		System.out.println(str);
+		c1=(colors[0]==361)?Color.HSBtoRGB(0,0,1):(colors[0]==360)?Color.HSBtoRGB(0,0,0):Color.HSBtoRGB(new Float(((float)colors[0])/360), new Float(sat[colors[0]]), new Float(br[colors[0]]));
+		c2=(colors[1]==361)?Color.HSBtoRGB(0,0,1):(colors[1]==360)?Color.HSBtoRGB(0,0,0):Color.HSBtoRGB(new Float(((float)colors[1])/360), new Float(sat[colors[1]]), new Float(br[colors[1]]));
+		c3=(colors[2]==361)?Color.HSBtoRGB(0,0,1):(colors[2]==360)?Color.HSBtoRGB(0,0,0):Color.HSBtoRGB(new Float(((float)colors[2])/360), new Float(sat[colors[2]]), new Float(br[colors[2]]));
+		c4=(colors[3]==361)?Color.HSBtoRGB(0,0,1):(colors[3]==360)?Color.HSBtoRGB(0,0,0):Color.HSBtoRGB(new Float(((float)colors[3])/360), new Float(sat[colors[3]]), new Float(br[colors[3]]));
+		c5=(colors[4]==361)?Color.HSBtoRGB(0,0,1):(colors[4]==360)?Color.HSBtoRGB(0,0,0):Color.HSBtoRGB(new Float(((float)colors[4])/360), new Float(sat[colors[4]]), new Float(br[colors[4]]));
+		gr.setColor(new Color(c1));
+		gr.fillRect(20,20,50,50);
+		gr.setColor(new Color(c2));
+		gr.fillRect(90,20,50,50);
+		gr.setColor(new Color(c3));
+		gr.fillRect(160,20,50,50);
+		gr.setColor(new Color(c4));
+		gr.fillRect(230,20,50,50);
+		gr.setColor(new Color(c5));
+		gr.fillRect(300,20,50,50);
+		
 	}
 }
