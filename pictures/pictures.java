@@ -6,7 +6,7 @@ import java.awt.image.*;
 import javax.imageio.*;
 import javax.imageio.stream.ImageOutputStream;
 @SuppressWarnings("all")
-public class picTest {
+public class pictures {
 	public static void main(String[]args) throws IOException{
 		BufferedImage image = ImageIO.read(new File(INPUT));
 		int width=image.getWidth();
