@@ -5,6 +5,6 @@ Stage 1: pull colors from images
 
 Stage 2: pull images from words 
 
-Stage 3: pull words from passage/s 
+Stage 3: pull words from passages 
 
 Stage 4: pull passages from an image 
