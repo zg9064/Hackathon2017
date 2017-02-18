@@ -9,7 +9,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class FileDragger extends JPanel {
 	private JList list = new JList();
-
+	
 	public FileDragger() {
 		list.setDragEnabled(true);
 		list.setTransferHandler(new FileListTransferHandler(list));
@@ -21,6 +21,7 @@ public class FileDragger extends JPanel {
 		FileDragger mainPanel = new FileDragDemo();
 
 		JFrame frame = new JFrame("FileDragger");
+		JFrame.setDefaultLookAndFeelDecorated(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(mainPanel);
 		frame.pack();
