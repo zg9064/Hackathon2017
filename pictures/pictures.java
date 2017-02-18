@@ -36,12 +36,56 @@ public class pictures {
 				s+=hues[i]+", ";
 		System.out.println("black: "+black+" white: "+white+" hues: "+s);
     */		int[] colors=new int[5];
+		int mc1;
+		int mc2;
+		int mc3;
+		int mc4;
 		for(int i=0;i<5;i++){
 			int mostCommon=0;
-			for(int i=0;i<360;i++){
-				if(hues[i]>hues[mostCommon]) mostCommon=i;
+			for(int j=0;j<360;j++){
+				boolean run=true;
+				if(mc1!=null)
+					if(mc1<=15){
+						j=31;
+						run=false;
+					}
+					else if(j==mc1-15){
+						j=j+31;
+						run=false;
+					}
+				else if(mc2!=null)
+					if(mc2<=15){
+						j=31;
+						run=false;
+					}
+					else if(j==mc2-15){
+						j=j+31;
+						run=false;
+					}
+				else if(mc3!=null)
+					if(mc3<=15){
+						j=31;
+						run=false;
+					}
+					else if(j==mc3-15){
+						j=j+31;
+						run=false;
+					}
+				else if(mc4!=null)
+					if(mc4<=15){
+						j=31;
+						run=false;
+					}
+					else if(j==mc4-15){
+						j=j+31;
+						run=false;
+					}
+				if(run&&hues[i]>hues[mostCommon]) mostCommon=i;
 			}
-			
-				
+			if(mc1==null) mc1=mostCommon;
+			else if(mc2==null) mc2=mostCommon;
+			else if(mc3==null) mc3=mostCommon;
+			else if(mc4==null) mc4==mostCommon;
+			int[i]=mostCommon;
 	}
 }
