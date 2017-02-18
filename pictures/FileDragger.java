@@ -7,10 +7,10 @@ import java.util.List;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class FileDragDemo extends JPanel {
+public class FileDragger extends JPanel {
 private JList list = new JList();
 
-public FileDragDemo() {
+public FileDragger() {
   list.setDragEnabled(true);
   list.setTransferHandler(new FileListTransferHandler(list));
 
@@ -18,7 +18,7 @@ public FileDragDemo() {
 }
 
  private static void createAndShowGui() {
-  FileDragDemo mainPanel = new FileDragDemo();
+  FileDragger mainPanel = new FileDragDemo();
 
   JFrame frame = new JFrame("FileDragDemo");
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
