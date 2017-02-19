@@ -30,7 +30,7 @@ public class pictures extends JComponent {
 		float[] sn=new float[360];
 		float[] br=new float[360];
 		float[] bn=new float[360];
-		for(int z=0;z<5;z++){
+		while(b.ready()){
 			String URL;
 			try {
 				URL = b.readLine();
