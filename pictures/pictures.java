@@ -14,6 +14,7 @@ public class pictures extends JComponent {
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(30, 30, 400, 200);
+		window.setLocation(200,0);
 		window.getContentPane().add(new pictures());
 		window.setVisible(true);
 	}
