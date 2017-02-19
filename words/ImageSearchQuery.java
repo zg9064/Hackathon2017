@@ -1,6 +1,8 @@
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,15 +26,21 @@ import org.w3c.dom.NodeList;
 
 public class TestImage {
 
-	public static void main (String [] args) throws org.json.simple.parser.ParseException, JSONException, IOException {
+	public static void start(File f) throws org.json.simple.parser.ParseException, JSONException, IOException {
 		File file = new File ("URLStrings.txt");
 		FileWriter fw = new FileWriter (file);
 		PrintWriter pw = new PrintWriter(fw);
 
 		int counter5=0;
-		Scanner scan = new Scanner (new File ("maxFrequencyWords.txt"));
-		while (scan.hasNext()) {
-			String word = scan.next(); 
+		//Scanner scan = new Scanner (new File ("maxFrequencyWords.txt"));
+		FileReader fr = new FileReader (f);
+		BufferedReader br = new BufferedReader (fr);
+		Scanner scan = new Scanner (f);
+		
+		//boolean test = scan.hasNext();
+		System.out.println(scan.hasNext());
+		while (br.ready()) {
+			String word = br.readLine(); 
 			String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
 			String url = "https://www.google.com/search?site=imghp&tbm=isch&source=hp&q=" + word;
 
@@ -79,7 +87,9 @@ public class TestImage {
 		}
 		fw.close();
 		pw.close();
-
+		//scan.close();
+		fr.close();
+		br.close();
 
 
 		//			for (String imageUrl : resultUrls) {
