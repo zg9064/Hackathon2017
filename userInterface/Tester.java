@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -12,8 +13,10 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -37,11 +40,11 @@ public class Tester {
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		//container.setPreferredSize(new Dimension(500,500));
 		container.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), BorderFactory.createBevelBorder(1)));
-		
+
 		//logo panel
 		JPanel logoPanel = new JPanel();
 		logoPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		ImageIcon imageIcon = new ImageIcon("/Users/Adin/Desktop/LOGOBOI.png"); // load the image to a imageIcon
+		ImageIcon imageIcon = new ImageIcon("/Users/agaut/Desktop/LOGOBOI.png"); // load the image to a imageIcon
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back
@@ -118,7 +121,7 @@ public class Tester {
 						pw = new BufferedWriter (new FileWriter(f.getAbsoluteFile()));
 						item.word = text2.getText();
 						item.numPics = 5;
-						System.out.println(item.word);
+						//System.out.println(item.word);
 						pw.write(item.word);
 						pw.flush();
 						TestImage.start(f);
