@@ -118,7 +118,7 @@ public class Tester {
 //					}
 					//pw.print(item.picLink);
 					window.setVisible(true);
-					window.getContentPane().add(new Pictures());
+					window.getContentPane().add(new pictures());
 					pw.close();
 					fw.close();
 				} catch (IOException | ParseException | JSONException e1) {
