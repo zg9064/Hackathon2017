@@ -1,5 +1,8 @@
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -47,10 +50,25 @@ public class TestImage {
 				counter++;
 			}
 			System.out.println("number of results: " + resultUrls.size());
+			
+			File file = new File ("URLStrings.txt");
+			FileWriter fw = new FileWriter (file);
+			PrintWriter pw = new PrintWriter(fw);
 
+			int counter2 = 0;
 			for (String imageUrl : resultUrls) {
+				counter2++;
 				System.out.println(imageUrl);
+				pw.print(imageUrl);
+				if (counter2 != 5) {
+					pw.print("\n");
+				}
 			}
+			
+			fw.close();
+			pw.close();
+			
+			
 			
 //			for (String imageUrl : resultUrls) {
 //				 BufferedImage image = ImageIO.read(new URL(imageUrl));
