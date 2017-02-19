@@ -35,11 +35,10 @@ public class TestImage {
 		//Scanner scan = new Scanner (new File ("maxFrequencyWords.txt"));
 		FileReader fr = new FileReader (f);
 		BufferedReader br = new BufferedReader (fr);
-		Scanner scan = new Scanner (f);
 		
 		//boolean test = scan.hasNext();
-		System.out.println(scan.hasNext());
-		while (br.ready()) {
+		System.out.println(br.ready());
+		//while (br.ready()) {
 			String word = br.readLine(); 
 			String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
 			String url = "https://www.google.com/search?site=imghp&tbm=isch&source=hp&q=" + word;
@@ -84,7 +83,7 @@ public class TestImage {
 			//				if (counter2 != 25) {
 			//					pw.print("\n");
 			//				}
-		}
+		//}
 		fw.close();
 		pw.close();
 		//scan.close();
