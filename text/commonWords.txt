@@ -120,6 +120,8 @@ last
 right
 move
 thing
+shit
+your
 general
 never
 same
@@ -223,6 +225,7 @@ cost
 value
 second
 why
+fuck
 clear
 expect
 complete
@@ -318,6 +321,7 @@ across
 quite
 anything
 past
+got
 view
 manage
 answer
@@ -362,3 +366,10 @@ tis
 are
 was
 were
+diverged
+stirred
+moved
+hers
+his
+neither
+mine
