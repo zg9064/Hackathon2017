@@ -1,26 +1,30 @@
-import java.util.ArrayList;
-import java.util.scanner;
-import java.io.file;
-public class textAlgorithm {
-  public static void main(String[] args) {
-    private static String[] uselessWords = {"he", "her", "I", "you", "them", "us", "we", "it", "to", "a", "and", "the", "of", "at", "from", "in", "on", "my", "your", "his", "its", "our", "their", "one's", "mine", "yours", "hers", "ours", "theirs", "she", "they", "one", "with"};
-    
-    public static Hashtable<String, Integer> fileToString(String fileName) throws IOException {
-		  Hashtable<String, Integer> words = new Hashtable<String, Integer>();
-		  File file = new File (fileName);
-		  FileReader fr = new FileReader (file);
-		  Scanner sc = new Scanner(fr);
-		  while (sc.hasNext()) {
-			  String key = sc.next().toLowerCase();
-			  if(words.containsKey(key))
-				  words.put(key, words.get(key) + 1);
-			  else
-				  words.put(key, 1);
-		  }
-		  fr.close();
-		  sc.close();
-		  return words;
-	  }
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.BufferedReader;
+import java.util.Hashtable;
+
+public class Text {
+	
+	//65 - 90: A - Z ; 97 - 122 : a - z
+	public static Hashtable<String, Integer> fileToString(String fileName) throws IOException {
+		Hashtable<String, Integer> words = new Hashtable<String, Integer>();
+		File file = new File (fileName);
+		FileReader fr = new FileReader (file);
+		Scanner sc = new Scanner(fr);
+		while (sc.hasNext()) {
+			String key = sc.next().toLowerCase();
+			if(words.containsKey(key))
+				words.put(key, words.get(key) + 1);
+			else
+				words.put(key, 1);
+		}
+		fr.close();
+		sc.close();
+		return words;
+	}
 	
 	public static Hashtable<String, Integer> createWords(String str) {
 		Hashtable<String, Integer> words = new Hashtable<String, Integer>();
@@ -72,15 +76,7 @@ public class textAlgorithm {
 		}
 		return str;
 	}
-    
-    public static void removeWords(string stringName){
-      for(int i = 0; i<uselessWords.length; i++)
-      {
-        if (stringName.contains(uselessWords[i] + " ")
-            {
-              stringName.replace(uselessWords[i] + " ", "")
-            }
-      }
-      }
-  }
+	
+
 }
+
