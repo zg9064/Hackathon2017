@@ -116,9 +116,23 @@ public class Tester {
 //						System.out.println(item.text);
 //						pw.print(item.text);
 //					}
-					//pw.print(item.picLink);
-					window.setVisible(true);
-					window.getContentPane().add(new pictures());
+					JPanel buttonsPanel = new JPanel();
+				    	JButton restart = new JButton("Get New Palette");
+				    	window.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+				    	buttonsPanel.add(restart);
+				    	window.getContentPane().add(new pictures());
+				   	window.setVisible(true);
+				    	restart.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							window.setVisible(false);
+							window.dispose();
+							item.word = "";
+							item.numPics = 0;
+							item.picLink = "";
+							item.text = "";
+							
+						}
+				    	});
 					pw.close();
 					fw.close();
 				} catch (IOException | ParseException | JSONException e1) {
