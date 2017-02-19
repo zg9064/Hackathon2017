@@ -77,6 +77,29 @@ public class Text {
 		return str;
 	}
 	
+	Hashtable <String, Integer> commonWords = new Hashtable <String, Integer>();
+	Scanner scan = new Scanner (new File("commonWords.txt"));
+	while (scan.hasNext()) {
+		commonWords.put(scan.next(), 0);
+	}
+	
+	String [] maxFreqWords = new String[5];
+
+	int counter3 = 0;
+	while (counter3 < 5) {
+		int maxFreq = 0;
+		String maxKey = "";
+		for (String key : words.keys()) {
+			if (words.get(key) > maxFreq && !commonWords.contains(key)) {
+				maxFreq = words.get(key);
+				maxKey = key;
+			}
+		}
+		hashtable.put (maxKey, 0);
+		maxFreqWords[counter3] = maxKey;
+		counter3++;
+	}
+	
 
 }
 
