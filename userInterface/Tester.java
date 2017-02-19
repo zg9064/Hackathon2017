@@ -33,7 +33,7 @@ public class Tester {
 		final PrintWriter pr = new PrintWriter(new FileWriter(imgFile));
 
 		//info
-		final JFrame frame = new JFrame("Color Palette Generator");
+		final JFrame frame = new JFrame("Synaesthesia");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel container = new JPanel();
