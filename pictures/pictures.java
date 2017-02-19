@@ -1,4 +1,6 @@
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 import java.awt.Color;
 import java.awt.image.*;
@@ -8,14 +10,28 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.imageio.*;
 import javax.imageio.stream.ImageOutputStream;
+
+import javax.imageio.ImageIO;
+import javax.lang.model.util.Elements;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import org.jsoup.*;
+import org.jsoup.nodes.Node;
+import org.w3c.dom.NodeList;
+
 @SuppressWarnings("all")
-public class pictures extends JComponent {
+public class Pictures extends JComponent {
 	public static void main(String[]args){
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(30, 30, 400, 200);
 		window.setLocation(200,0);
-		window.getContentPane().add(new pictures());
+		window.getContentPane().add(new Pictures());
 		window.setVisible(true);
 	}
 	public void paint(Graphics gr){
@@ -37,16 +53,34 @@ public class pictures extends JComponent {
 				try {
 					URL = b.readLine();
 				} catch (IOException e) {
+					e.printStackTrace();
 					break;
 				}
 				BufferedImage image;
 				try {
 					image = ImageIO.read(new File(URL));
 				} catch (IOException e1) {
-					return;
+					try{
+						image= ImageIO.read(new URL(URL).openStream());
+					}
+					catch(IOException e){
+						continue;
+					}
 				}
-				int width=image.getWidth();
-				int height=image.getHeight();
+				int width;
+				try{
+					width=image.getWidth();
+				}
+				catch(NullPointerException e){
+					continue;
+				}
+				int height;
+				try{
+					height=image.getHeight();
+				}
+				catch(NullPointerException e){
+					continue;
+				}
 				for(int y=0;y<height;y+=3){
 					for(int x=0;x<width;x+=3){
 						float[] hsb= MostCommon.getColor(image,x,y);
