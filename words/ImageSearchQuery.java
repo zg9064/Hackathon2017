@@ -37,7 +37,7 @@ public class TestImage {
 		BufferedReader br = new BufferedReader (fr);
 		
 		//boolean test = scan.hasNext();
-		System.out.println(br.ready());
+		//System.out.println(br.ready());
 		//while (br.ready()) {
 			String word = br.readLine(); 
 			String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
