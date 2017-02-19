@@ -39,7 +39,7 @@ public class pictures extends JComponent {
 			}
 			BufferedImage image;
 			try {
-				image = ImageIO.read(new File(URL));//INPUT will be the strings passed to it
+				image = ImageIO.read(new File(URL));
 			} catch (IOException e1) {
 				return;
 			}
