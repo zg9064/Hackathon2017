@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -94,35 +95,40 @@ public class Tester {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					FileWriter fw = new FileWriter (imgFile);
-					PrintWriter pw=new PrintWriter(fw);
+					BufferedWriter pw=new BufferedWriter(fw);
 					if(!fileDrag.isEmpty()){
 						item.picLink = fileDrag.getFirstItem().toString();
 						item.numPics =1;
 						System.out.println(item.picLink);
-						pw.print(item.picLink);
+						pw.write(item.picLink);
+						pw.flush();
 					}	
 					if(!"".equals(text2.getText())){
 						File f=new File("maxFrequencyWords.txt");
-						pw = new PrintWriter (new FileWriter(f));
+						pw = new BufferedWriter (new FileWriter(f.getAbsoluteFile()));
 						item.word = text2.getText();
 						item.numPics = 5;
 						System.out.println(item.word);
-						pw.print(item.word);
+						pw.write(item.word);
+						pw.flush();
 						TestImage.start(f);
 					}
-//					if(!"".equals(text3.getText())){
-//						item.text = text3.getText();
-//						item.numPics =5;
-//						System.out.println(item.text);
-//						pw.print(item.text);
-//					}
+					if(!"".equals(text3.getText())){
+						File f=new File("maxFrequencyWords.txt");
+						pw = new BufferedWriter (new FileWriter(f.getAbsoluteFile()));
+
+						item.text = text3.getText();
+						item.numPics =5;
+						Text.getFreqArray(Text.createWords(item.text));
+						TestImage.start(f);
+					}
 					JPanel buttonsPanel = new JPanel();
-				    	JButton restart = new JButton("Get New Palette");
-				    	window.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
-				    	buttonsPanel.add(restart);
-				    	window.getContentPane().add(new pictures());
-				   	window.setVisible(true);
-				    	restart.addActionListener(new ActionListener() {
+					JButton restart = new JButton("Get New Palette");
+					window.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+					buttonsPanel.add(restart);
+					window.getContentPane().add(new Pictures());
+					window.setVisible(true);
+					restart.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							window.setVisible(false);
 							window.dispose();
@@ -130,9 +136,12 @@ public class Tester {
 							item.numPics = 0;
 							item.picLink = "";
 							item.text = "";
-							
+
 						}
-				    	});
+					});
+					//pw.print(item.picLink);
+					window.setVisible(true);
+					window.getContentPane().add(new Pictures());
 					pw.close();
 					fw.close();
 				} catch (IOException | ParseException | JSONException e1) {
