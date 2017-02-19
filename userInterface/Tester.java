@@ -17,26 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Tester{
-	static ColoredItem item = new ColoredItem();
-	static File imgFile;
-	static FileWriter fr;
-	static PrintWriter pr;
-	static Tester t;
+public class Tester {
 	
-	public Tester() throws IOException{
-		imgFile=new File("URLStrings.txt");
-		fr=new FileWriter(imgFile);
-		pr=new PrintWriter(fr);
-	}
-	
-	public PrintWriter getPR(){
-		return pr;
-	}
 	
 	public static void main(String[] args) throws IOException{
-		
-		t=new Tester();
+		final ColoredItem item = new ColoredItem();
+		final File imgFile = new File("URLStrings.txt");
+		final PrintWriter pr = new PrintWriter(new FileWriter(imgFile));
 	    
 		//info
 		final JFrame frame = new JFrame("Color Palette Generator");
@@ -96,7 +83,7 @@ public class Tester{
 		
 		//colors
 		final JFrame window = new JFrame();
-		//final ArrayList<String> strings = new ArrayList<String>();
+		final ArrayList<String> strings = new ArrayList<String>();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(30, 30, 400, 200);
 		window.setLocation(400, 0);
@@ -107,8 +94,8 @@ public class Tester{
 					item.picLink = fileDrag.getFirstItem().toString();
 					item.numPics =1;
 					System.out.println(item.picLink);
-					//strings.add(item.picLink);
-					t.getPR().println(item.picLink);
+					strings.add(item.picLink);
+					pr.println(item.picLink);
 				}	
 				if(!"".equals(text2.getText())){
 					item.word = text2.getText();
@@ -123,7 +110,7 @@ public class Tester{
 				window.setVisible(true);
 			}
 		});
-	    //pr.print(strings.get(0));
+	    pr.print(strings.get(0));
 		pr.close();
 	}
 }
