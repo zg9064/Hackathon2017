@@ -1,7 +1,10 @@
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.lang.model.util.Elements;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
@@ -18,9 +21,9 @@ public class TestImage {
 
 	public static void main (String [] args) throws org.json.simple.parser.ParseException, JSONException {
 
-		// can only grab first 100 results
+		String test = "test"; //will be whatever is passed from other class
 		String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
-		String url = "https://www.google.com/search?site=imghp&tbm=isch&source=hp&q=kittens&gws_rd=cr"//https://www.google.com/search?tbm=isch&q=findSomeImage;
+		String url = "https://www.google.com/search?site=imghp&tbm=isch&source=hp&q=" + test;
 
 		ArrayList<String> resultUrls = new ArrayList<String>();
 		//ArrayList<Element> elements = new ArrayList<Element>();
@@ -30,20 +33,29 @@ public class TestImage {
 
 			///org.w3c.dom.NodeList elements = (org.w3c.dom.NodeList) (doc).select("div.rg_meta");
 			org.jsoup.select.Elements elements = (org.jsoup.select.Elements) (doc).select("div.rg_meta");
-			//elements = (ArrayList<Element>) (doc.select("div.rg_meta"));
 
 			JSONObject jsonObject;
+			int counter = 0;
 			for (Node element : elements) {
+				if (counter == 5) {
+					break;
+				}
 				if (((Node) element).childNodeSize() > 0) {
 					jsonObject = (JSONObject) new JSONParser().parse(((Node) element).childNode(0).toString());
 					resultUrls.add((String) jsonObject.get("ou"));
 				}
+				counter++;
 			}
 			System.out.println("number of results: " + resultUrls.size());
 
 			for (String imageUrl : resultUrls) {
 				System.out.println(imageUrl);
 			}
+			
+//			for (String imageUrl : resultUrls) {
+//				 BufferedImage image = ImageIO.read(new URL(imageUrl));
+//				 System.out.println(image);
+//			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
