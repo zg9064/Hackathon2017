@@ -18,6 +18,8 @@ public class pictures extends JComponent {
 		window.setVisible(true);
 	}
 	public void paint (Graphics gr){
+		if(INPUT instanceof Image) run once;
+		if(INPUT instanceof Image) run five times;
 		int c1=0,c2=0,c3=0,c4=0,c5=0;
 		BufferedImage image;
 		try {
