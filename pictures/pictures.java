@@ -30,35 +30,39 @@ public class pictures extends JComponent {
 		float[] sn=new float[360];
 		float[] br=new float[360];
 		float[] bn=new float[360];
-		while(b.ready()){
-			String URL;
-			try {
-				URL = b.readLine();
-			} catch (IOException e) {
-				break;
-			}
-			BufferedImage image;
-			try {
-				image = ImageIO.read(new File(URL));
-			} catch (IOException e1) {
-				return;
-			}
-			int width=image.getWidth();
-			int height=image.getHeight();
-			for(int y=0;y<height;y+=3){
-				for(int x=0;x<width;x+=3){
-					float[] hsb= MostCommon.getColor(image,x,y);
-					if      (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
-					else if (hsb[2] < 0.1                ) black++;
-					else{
-						hues[(int)(hsb[0])]++;
-						sat[(int)(hsb[0])]=(float)(sn[(int)(hsb[0])]*sat[(int)(hsb[0])]+hsb[1])/(sn[(int)(hsb[0])]+1);
-						br[(int)(hsb[0])]=(float)(br[(int)(hsb[0])]*bn[(int)(hsb[0])]+hsb[2])/(bn[(int)(hsb[0])]+1);
-						sn[(int)(hsb[0])]++;
-						bn[(int)(hsb[0])]++;
+		try {
+			while(b.ready()){
+				String URL;
+				try {
+					URL = b.readLine();
+				} catch (IOException e) {
+					break;
+				}
+				BufferedImage image;
+				try {
+					image = ImageIO.read(new File(URL));
+				} catch (IOException e1) {
+					return;
+				}
+				int width=image.getWidth();
+				int height=image.getHeight();
+				for(int y=0;y<height;y+=3){
+					for(int x=0;x<width;x+=3){
+						float[] hsb= MostCommon.getColor(image,x,y);
+						if      (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
+						else if (hsb[2] < 0.1                ) black++;
+						else{
+							hues[(int)(hsb[0])]++;
+							sat[(int)(hsb[0])]=(float)(sn[(int)(hsb[0])]*sat[(int)(hsb[0])]+hsb[1])/(sn[(int)(hsb[0])]+1);
+							br[(int)(hsb[0])]=(float)(br[(int)(hsb[0])]*bn[(int)(hsb[0])]+hsb[2])/(bn[(int)(hsb[0])]+1);
+							sn[(int)(hsb[0])]++;
+							bn[(int)(hsb[0])]++;
+						}
 					}
 				}
 			}
+		} catch (IOException e1) {
+			return;
 		}
 		int[] colors=new int[5];
 		int mc1=-1;
