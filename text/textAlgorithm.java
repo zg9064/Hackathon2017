@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.Set;
 import java.io.BufferedReader;
@@ -36,7 +38,7 @@ public class Text {
 
 			}	
 			else {
-				String temp = str.substring(0, index);
+				String temp = str.substring(0, index)+" ";
 				if(index != str.length() - 1) {
 					str = temp + str.substring(index + 1);
 				}
@@ -109,6 +111,18 @@ public class Text {
 			maxFreqWords[counter3] = maxKey;
 			counter3++;
 		}
+		File outputFile = new File ("maxFrequencyWords.txt");
+		FileWriter fw = new FileWriter (outputFile);
+		PrintWriter pw = new PrintWriter (fw);
+		for (int i = 0; i < maxFreqWords.length; i++) {
+			pw.print(maxFreqWords[i]);
+			if (i != maxFreqWords.length-1) {
+				pw.println();
+			}
+		}
+		pw.flush();
+		pw.close();
+		fw.close();
 		return maxFreqWords;
 	}
 }
