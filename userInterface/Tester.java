@@ -17,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
 public class Tester {
 
 
@@ -91,7 +94,7 @@ public class Tester {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					FileWriter fw = new FileWriter (imgFile);
-					PrintWriter pw = new PrintWriter (fw);
+					PrintWriter pw=new PrintWriter(fw);
 					if(!fileDrag.isEmpty()){
 						item.picLink = fileDrag.getFirstItem().toString();
 						item.numPics =1;
@@ -99,21 +102,26 @@ public class Tester {
 						pw.print(item.picLink);
 					}	
 					if(!"".equals(text2.getText())){
+						File f=new File("maxFrequencyWords.txt");
+						pw = new PrintWriter (new FileWriter(f));
 						item.word = text2.getText();
 						item.numPics = 5;
 						System.out.println(item.word);
+						pw.print(item.word);
+						TestImage.start(f);
 					}
-					if(!"".equals(text3.getText())){
-						item.text = text3.getText();
-						item.numPics =5;
-						System.out.println(item.text);
-					}
+//					if(!"".equals(text3.getText())){
+//						item.text = text3.getText();
+//						item.numPics =5;
+//						System.out.println(item.text);
+//						pw.print(item.text);
+//					}
 					//pw.print(item.picLink);
 					window.setVisible(true);
 					window.getContentPane().add(new Pictures());
 					pw.close();
 					fw.close();
-				} catch (IOException e1) {
+				} catch (IOException | ParseException | JSONException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
