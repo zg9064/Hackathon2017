@@ -17,34 +17,46 @@ public class pictures extends JComponent {
 		window.getContentPane().add(new pictures());
 		window.setVisible(true);
 	}
-	public void paint (Graphics gr){
-		int c1=0,c2=0,c3=0,c4=0,c5=0;
-		BufferedImage image;
+	public void paint(Graphics gr){
+		BufferedReader b;
 		try {
-			image = ImageIO.read(new File(INPUT));
-		} catch (IOException e1) {
+			b = new BufferedReader(new FileReader("URLStrings.txt"));
+		} catch (FileNotFoundException e2) {
 			return;
 		}
-		int width=image.getWidth();
-		int height=image.getHeight();
+		int c1=0,c2=0,c3=0,c4=0,c5=0,white=0,black=0;
 		int[] hues=new int[360];
 		float[] sat=new float[360];
 		float[] sn=new float[360];
 		float[] br=new float[360];
 		float[] bn=new float[360];
-		int black=0;
-		int white=0;
-		for(int y=0;y<height;y+=3){
-			for(int x=0;x<width;x+=3){
-				float[] hsb= MostCommon.getColor(image,x,y);
-				if      (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
-				else if (hsb[2] < 0.1                ) black++;
-				else{
-					hues[(int)(hsb[0])]++;
-					sat[(int)(hsb[0])]=(float)(sn[(int)(hsb[0])]*sat[(int)(hsb[0])]+hsb[1])/(sn[(int)(hsb[0])]+1);
-					br[(int)(hsb[0])]=(float)(br[(int)(hsb[0])]*bn[(int)(hsb[0])]+hsb[2])/(bn[(int)(hsb[0])]+1);
-					sn[(int)(hsb[0])]++;
-					bn[(int)(hsb[0])]++;
+		for(int z=0;z<5;z++){
+			String URL;
+			try {
+				URL = b.readLine();
+			} catch (IOException e) {
+				break;
+			}
+			BufferedImage image;
+			try {
+				image = ImageIO.read(new File(URL));//INPUT will be the strings passed to it
+			} catch (IOException e1) {
+				return;
+			}
+			int width=image.getWidth();
+			int height=image.getHeight();
+			for(int y=0;y<height;y+=3){
+				for(int x=0;x<width;x+=3){
+					float[] hsb= MostCommon.getColor(image,x,y);
+					if      (hsb[1] < 0.1 && hsb[2] > 0.9) white++;
+					else if (hsb[2] < 0.1                ) black++;
+					else{
+						hues[(int)(hsb[0])]++;
+						sat[(int)(hsb[0])]=(float)(sn[(int)(hsb[0])]*sat[(int)(hsb[0])]+hsb[1])/(sn[(int)(hsb[0])]+1);
+						br[(int)(hsb[0])]=(float)(br[(int)(hsb[0])]*bn[(int)(hsb[0])]+hsb[2])/(bn[(int)(hsb[0])]+1);
+						sn[(int)(hsb[0])]++;
+						bn[(int)(hsb[0])]++;
+					}
 				}
 			}
 		}
@@ -185,6 +197,6 @@ public class pictures extends JComponent {
 		gr.fillRect(230,20,50,50);
 		gr.setColor(new Color(c5));
 		gr.fillRect(300,20,50,50);
-		
+
 	}
 }
