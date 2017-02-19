@@ -37,7 +37,17 @@ public class Tester {
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		//container.setPreferredSize(new Dimension(500,500));
 		container.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20), BorderFactory.createBevelBorder(1)));
-
+		
+		//logo panel
+		JPanel logoPanel = new JPanel();
+		logoPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		ImageIcon imageIcon = new ImageIcon("/Users/Adin/Desktop/LOGOBOI.png"); // load the image to a imageIcon
+		Image image = imageIcon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(70, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		imageIcon = new ImageIcon(newimg);  // transform it back
+		logoPanel.add(new JLabel(imageIcon));
+		container.add(logoPanel);
+		
 		//image panel
 		JPanel imagePanel = new JPanel();
 		//imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.X_AXIS));
